@@ -1,9 +1,6 @@
 import torch
 import torch.nn as nn
-from torch.nn import init
-import torch.nn.functional as F
 
-import numpy as np
 
 class Set2Set(nn.Module):
     def __init__(self, input_dim, hidden_dim, act_fn=nn.ReLU, num_layers=1):

@@ -1,4 +1,3 @@
-import networkx
 import numpy as np
 
 def partition(embeddings):

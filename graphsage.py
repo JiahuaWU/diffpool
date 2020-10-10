@@ -1,8 +1,6 @@
 import torch
 import torch.nn as nn
-from torch.autograd import Variable
 
-import numpy as np
 
 class SupervisedGraphSage(nn.Module):
     ''' GraphSage embeddings
@@ -14,7 +12,7 @@ class SupervisedGraphSage(nn.Module):
         self.xent = nn.CrossEntropyLoss()
 
         self.weight = nn.Parameter(torch.FloatTensor(enc.embed_dim, num_classes))
-        init.xavier_uniform(self.weight)
+        nn.init.xavier_uniform(self.weight)
 
     def forward(self, nodes):
         embeds = self.enc(nodes)

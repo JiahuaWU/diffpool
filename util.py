@@ -6,17 +6,20 @@ import numpy as np
 
 # ---- NetworkX compatibility
 def node_iter(G):
-    if float(nx.__version__)<2.0:
+    if float(nx.__version__) < 2.0:
         return G.nodes()
     else:
         return G.nodes
 
+
 def node_dict(G):
-    if float(nx.__version__)>2.1:
+    if float(nx.__version__) > 2.1:
         node_dict = G.nodes
     else:
         node_dict = G.node
     return node_dict
+
+
 # ---------------------------
 
 
@@ -29,8 +32,9 @@ def imsave(fname, arr, vmin=None, vmax=None, cmap=None, format=None, origin=None
     fig.figimage(arr, cmap=cmap, vmin=vmin, vmax=vmax, origin=origin)
     fig.savefig(fname, dpi=1, format=format)
 
+
 def plot_graph(plt, G):
-    plt.title('num of nodes: '+str(G.number_of_nodes()), fontsize = 4)
+    plt.title('num of nodes: ' + str(G.number_of_nodes()), fontsize=4)
     parts = community.best_partition(G)
     values = [parts.get(node) for node in G.nodes()]
     colors = []
@@ -52,17 +56,18 @@ def plot_graph(plt, G):
     plt.axis("off")
     pos = nx.spring_layout(G)
     # pos = nx.spectral_layout(G)
-    nx.draw_networkx(G, with_labels=True, node_size=4, width=0.3, font_size = 3, node_color=colors,pos=pos)
+    nx.draw_networkx(G, with_labels=True, node_size=4, width=0.3, font_size=3, node_color=colors, pos=pos)
 
-def draw_graph_list(G_list, row, col, fname = 'figs/test'):
+
+def draw_graph_list(G_list, row, col, fname='figs/test'):
     # draw graph view
     plt.switch_backend('agg')
     for i, G in enumerate(G_list):
-        plt.subplot(row,col,i+1)
+        plt.subplot(row, col, i + 1)
         plot_graph(plt, G)
-        
+
     plt.tight_layout()
-    plt.savefig(fname+'_view.png', dpi=600)
+    plt.savefig(fname + '_view.png', dpi=600)
     plt.close()
 
     # draw degree distribution
@@ -72,14 +77,14 @@ def draw_graph_list(G_list, row, col, fname = 'figs/test'):
         G_deg = np.array(list(G.degree(G.nodes()).values()))
         bins = np.arange(20)
         plt.hist(np.array(G_deg), bins=bins, align='left')
-        plt.xlabel('degree', fontsize = 3)
-        plt.ylabel('count', fontsize = 3)
-        G_deg_mean = 2*G.number_of_edges()/float(G.number_of_nodes())
+        plt.xlabel('degree', fontsize=3)
+        plt.ylabel('count', fontsize=3)
+        G_deg_mean = 2 * G.number_of_edges() / float(G.number_of_nodes())
         plt.title('average degree: {:.2f}'.format(G_deg_mean), fontsize=4)
         plt.tick_params(axis='both', which='major', labelsize=3)
         plt.tick_params(axis='both', which='minor', labelsize=3)
     plt.tight_layout()
-    plt.savefig(fname+'_degree.png', dpi=600)
+    plt.savefig(fname + '_degree.png', dpi=600)
     plt.close()
 
     # degree_sequence = sorted(nx.degree(G).values(), reverse=True)  # degree sequence
@@ -91,8 +96,8 @@ def draw_graph_list(G_list, row, col, fname = 'figs/test'):
     # plt.close()
 
     # draw clustering distribution
-    #plt.switch_backend('agg')
-    #for i, G in enumerate(G_list):
+    # plt.switch_backend('agg')
+    # for i, G in enumerate(G_list):
     #    plt.subplot(row, col, i + 1)
     #    G_cluster = list(nx.clustering(G).values())
     #    bins = np.linspace(0,1,20)
@@ -107,13 +112,13 @@ def draw_graph_list(G_list, row, col, fname = 'figs/test'):
     #    plt.title('average clustering: {:.4f}'.format(G_cluster_mean), fontsize=4)
     #    plt.tick_params(axis='both', which='major', labelsize=3)
     #    plt.tick_params(axis='both', which='minor', labelsize=3)
-    #plt.tight_layout()
-    #plt.savefig(fname+'_clustering.png', dpi=600)
-    #plt.close()
+    # plt.tight_layout()
+    # plt.savefig(fname+'_clustering.png', dpi=600)
+    # plt.close()
 
     ## draw circle distribution
-    #plt.switch_backend('agg')
-    #for i, G in enumerate(G_list):
+    # plt.switch_backend('agg')
+    # for i, G in enumerate(G_list):
     #    plt.subplot(row, col, i + 1)
     #    cycle_len = []
     #    cycle_all = nx.cycle_basis(G)
@@ -134,13 +139,13 @@ def draw_graph_list(G_list, row, col, fname = 'figs/test'):
     #    plt.title('average cycle: {:.4f}'.format(G_cycle_mean), fontsize=4)
     #    plt.tick_params(axis='both', which='major', labelsize=3)
     #    plt.tick_params(axis='both', which='minor', labelsize=3)
-    #plt.tight_layout()
-    #plt.savefig(fname+'_cycle.png', dpi=600)
-    #plt.close()
+    # plt.tight_layout()
+    # plt.savefig(fname+'_cycle.png', dpi=600)
+    # plt.close()
 
     ## draw community distribution
-    #plt.switch_backend('agg')
-    #for i, G in enumerate(G_list):
+    # plt.switch_backend('agg')
+    # for i, G in enumerate(G_list):
     #    plt.subplot(row, col, i + 1)
     #    parts = community.best_partition(G)
     #    values = np.array([parts.get(node) for node in G.nodes()])
@@ -157,17 +162,15 @@ def draw_graph_list(G_list, row, col, fname = 'figs/test'):
     #    plt.title('average clustering: {}'.format(G_community_count), fontsize=4)
     #    plt.tick_params(axis='both', which='major', labelsize=3)
     #    plt.tick_params(axis='both', which='minor', labelsize=3)
-    #plt.tight_layout()
-    #plt.savefig(fname+'_community.png', dpi=600)
-    #plt.close()
+    # plt.tight_layout()
+    # plt.savefig(fname+'_community.png', dpi=600)
+    # plt.close()
 
 
 def exp_moving_avg(x, decay=0.9):
     shadow = x[0]
     a = [shadow]
     for v in x[1:]:
-        shadow -= (1-decay) * (shadow-v)
+        shadow -= (1 - decay) * (shadow - v)
         a.append(shadow)
     return a
-
-

@@ -1,11 +1,10 @@
-import networkx as nx
+import random
+
 import numpy as np
 import torch
 
-import pickle
-import random
-
 from graph_sampler import GraphSampler
+
 
 def prepare_val_data(graphs, args, val_idx, max_nodes=0):
 
