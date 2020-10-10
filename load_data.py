@@ -1,8 +1,8 @@
-import networkx as nx
-import numpy as np
-import scipy as sc
 import os
 import re
+
+import networkx as nx
+import numpy as np
 
 import util
 
